@@ -1,5 +1,8 @@
 output_dir: "docs"
 book_filename: "ecoidx_report"
+view: https://github.com/marinebon/ecoidx_report/blob/main/%s
+edit: https://github.com/marinebon/ecoidx_report/edit/main/%s
+history: https://github.com/marinebon/ecoidx_report/commits/main/%s
 delete_merged_file: true
 language:
   ui:
