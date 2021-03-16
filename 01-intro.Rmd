@@ -1,29 +1,50 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 # Introduction {#intro}
 
-You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).
-
-Figures and tables with captions will be placed in `figure` and `table` environments, respectively.
-
-```{r plot-ts}
+```{r setup, include=FALSE}
 if (!require(librarian)){
   install.packages("librarian")
   library(librarian)
 }
 shelf(
+  bookdown,
+  knitr,
   marinebon/ecoidx,
-  januz/rmdrive,
+  plotly,
   quiet = T)
 
-g <- plot_ts(ts1)
-ggplotly(g)
+knitr::opts_chunk$set(echo = TRUE)
 ```
 
+You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).
 
-```{r nice-fig, fig.cap = attr(g, "caption"), out.width='80%', fig.asp=.75, fig.align='center'}
-g
+Figures and tables with captions will be placed in `figure` and `table` environments, respectively.
+
+## Plots
+
+```{r plot-ts}
+p_static      <- ecoidx::plot_ts(ts1)
+p_interactive <- ecoidx::plot_ts(ts1, add_icons = F) %>% 
+  plotly::ggplotly()
 ```
 
-Reference a figure by its code chunk label with the `fig:` prefix, e.g., see Figure \@ref(fig:nice-fig). Similarly, you can reference tables generated from `knitr::kable()`, e.g., see Table \@ref(tab:nice-tab).
+### Static
+
+```{r plot-ts-static, fig.cap = attr(p_static, "caption"), out.width='80%', fig.asp=.75, fig.align='center'}
+p_static
+```
+
+### Interactive
+
+```{r plot-ts-interactive, fig.cap = attr(p_static, "caption"), out.width='80%', fig.asp=.75, fig.align='center'}
+p_interactive
+```
+
+Reference a figure by its code chunk label with the `fig:` prefix, e.g., see Figure \@ref(fig:plot-ts-static). Similarly, you can reference tables generated from `knitr::kable()`, e.g., see Table \@ref(tab:nice-tab).
 
 ```{r nice-tab, tidy=FALSE}
 knitr::kable(
