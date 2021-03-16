@@ -15,6 +15,7 @@ shelf(
   quiet = T)
 
 g <- plot_ts(ts1)
+ggplotly(g)
 ```
 
 
